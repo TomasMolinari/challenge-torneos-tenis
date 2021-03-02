@@ -1,0 +1,67 @@
+body {
+
+    background-color: grey;
+}
+
+#ingresar button {
+
+    color: white !important;
+    background-color: transparent;
+    border-radius: 20px !important;
+    border: 2px solid white;
+    font-weight: 500;
+    min-width: 150px;
+    margin-bottom: 10px;
+    padding: 7px 11.2px;
+    box-shadow: none;
+    margin-top: 20px;
+    margin-left: 30%;
+    cursor: pointer;
+}
+
+#ingresar p {
+    color: white !important;
+    font-weight: 600;
+}
+
+#cuerpo {
+    margin-top: 20px;
+}
+
+#nombre_competencia {
+    font-size: 20px;
+    color: white !important;
+    font-weight: 800;
+}
+
+#nombre_jugador {
+    cursor: pointer;
+}
+
+#nombre_jugador,
+#cantidad_jugador {
+    font-size: 16px;
+    color: white !important;
+    font-weight: 600;
+}
+
+.contenedor-datos {
+    color: white !important;
+    background-color: transparent;
+    border-radius: 20px !important;
+    border: 2px solid white;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 22%;
+}
+
+.contenedor_cargando {
+    width: 100%;
+    z-index: 50;
+}
+
+#cuerpo h3 {
+    color: white !important;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
