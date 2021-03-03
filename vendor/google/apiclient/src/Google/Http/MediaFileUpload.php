@@ -67,9 +67,11 @@ class Google_Http_MediaFileUpload
   private $httpResultCode;
 
   /**
-   * @param $mimeType string
-   * @param $data string The bytes you want to upload.
-   * @param $resumable bool
+   * @param Google_Client $client
+   * @param RequestInterface $request
+   * @param string $mimeType
+   * @param string $data The bytes you want to upload.
+   * @param bool $resumable
    * @param bool $chunkSize File will be uploaded in chunks of this many bytes.
    * only used if resumable=True
    */
@@ -112,8 +114,8 @@ class Google_Http_MediaFileUpload
 
   /**
    * Send the next part of the file to upload.
-   * @param [$chunk] the next set of bytes to send. If false will used $data passed
-   * at construct time.
+   * @param bool $chunk Optional. The next set of bytes to send. If false will
+   * use $data passed at construct time.
    */
   public function nextChunk($chunk = false)
   {
@@ -165,8 +167,11 @@ class Google_Http_MediaFileUpload
 
     if (308 == $this->httpResultCode) {
       // Track the amount uploaded.
-      $range = explode('-', $response->getHeaderLine('range'));
-      $this->progress = $range[1] + 1;
+      $range = $response->getHeaderLine('range');
+      if ($range) {
+        $range_array = explode('-', $range);
+        $this->progress = $range_array[1] + 1;
+      }
 
       // Allow for changing upload URLs.
       $location = $response->getHeaderLine('location');
@@ -221,9 +226,7 @@ class Google_Http_MediaFileUpload
         Uri::withQueryValue($request->getUri(), 'uploadType', $uploadType)
     );
 
-    $mimeType = $this->mimeType ?
-        $this->mimeType :
-        $request->getHeaderLine('content-type');
+    $mimeType = $this->mimeType ?: $request->getHeaderLine('content-type');
 
     if (self::UPLOAD_RESUMABLE_TYPE == $uploadType) {
       $contentType = $mimeType;
@@ -233,7 +236,7 @@ class Google_Http_MediaFileUpload
       $postBody = $this->data;
     } else if (self::UPLOAD_MULTIPART_TYPE == $uploadType) {
       // This is a multipart/related upload.
-      $boundary = $this->boundary ? $this->boundary : mt_rand();
+      $boundary = $this->boundary ?: mt_rand();
       $boundary = str_replace('"', '', $boundary);
       $contentType = 'multipart/related; boundary=' . $boundary;
       $related = "--$boundary\r\n";
@@ -280,7 +283,7 @@ class Google_Http_MediaFileUpload
 
   public function getResumeUri()
   {
-    if (is_null($this->resumeUri)) {
+    if (null === $this->resumeUri) {
       $this->resumeUri = $this->fetchResumeUri();
     }
 
@@ -289,7 +292,6 @@ class Google_Http_MediaFileUpload
 
   private function fetchResumeUri()
   {
-    $result = null;
     $body = $this->request->getBody();
     if ($body) {
       $headers = array(
@@ -317,7 +319,7 @@ class Google_Http_MediaFileUpload
     if (isset($body['error']['errors'])) {
       $message .= ': ';
       foreach ($body['error']['errors'] as $error) {
-        $message .= "{$error[domain]}, {$error[message]};";
+        $message .= "{$error['domain']}, {$error['message']};";
       }
       $message = rtrim($message, ';');
     }

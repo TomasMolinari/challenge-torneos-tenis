@@ -39,6 +39,7 @@ class Google_Service_ShoppingContent extends Google_Service
   public $accounts_returncarrier;
   public $accountstatuses;
   public $accounttax;
+  public $buyongoogleprograms;
   public $collections;
   public $collectionstatuses;
   public $csses;
@@ -63,6 +64,7 @@ class Google_Service_ShoppingContent extends Google_Service
   public $repricingrules_repricingreports;
   public $returnaddress;
   public $returnpolicy;
+  public $returnpolicyonline;
   public $settlementreports;
   public $settlementtransactions;
   public $shippingsettings;
@@ -499,6 +501,46 @@ class Google_Service_ShoppingContent extends Google_Service
                   'required' => true,
                 ),
                 'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->buyongoogleprograms = new Google_Service_ShoppingContent_Resource_Buyongoogleprograms(
+        $this,
+        $this->serviceName,
+        'buyongoogleprograms',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'content/v2.1/{merchantId}/buyongoogleprograms/{regionCode}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionCode' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'onboard' => array(
+              'path' => 'content/v2.1/{merchantId}/buyongoogleprograms/{regionCode}/onboard',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionCode' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -2379,6 +2421,81 @@ class Google_Service_ShoppingContent extends Google_Service
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->returnpolicyonline = new Google_Service_ShoppingContent_Resource_Returnpolicyonline(
+        $this,
+        $this->serviceName,
+        'returnpolicyonline',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/{merchantId}/returnpolicyonline',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/{merchantId}/returnpolicyonline/{returnPolicyId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnPolicyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'content/v2.1/{merchantId}/returnpolicyonline/{returnPolicyId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnPolicyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/returnpolicyonline',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'content/v2.1/{merchantId}/returnpolicyonline/{returnPolicyId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnPolicyId' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

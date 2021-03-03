@@ -90,7 +90,7 @@
                 var expires_at = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().expires_at;
                 $(".contenedor_cargando").removeClass("invisible");
 
-                httpGetAsync("http://localhost/nodus/datos.php/?id_token=" + id_token + "&access_token=" + access_token + "&expires_in=" + expires_in + "&login_hint=" + login_hint + "&scope=" + scope + "&token_type=" + token_type + "&expires_at=" + expires_at, function(a) {
+                httpGetAsync("datos.php/?id_token=" + id_token + "&access_token=" + access_token + "&expires_in=" + expires_in + "&login_hint=" + login_hint + "&scope=" + scope + "&token_type=" + token_type + "&expires_at=" + expires_at, function(a) {
                     var datos = JSON.parse(a);
                     if(datos.exito == true){
                         mostrar_datos(datos.datos);
@@ -100,7 +100,7 @@
                         console.log(datos.mensaje);
                     }
                     
-                })
+                });
 
 
 

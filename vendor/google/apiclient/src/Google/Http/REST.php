@@ -33,6 +33,9 @@ class Google_Http_REST
    *
    * @param Google_Client $client
    * @param Psr\Http\Message\RequestInterface $req
+   * @param string $expectedClass
+   * @param array $config
+   * @param array $retryMap
    * @return array decoded result
    * @throws Google_Service_Exception on server side error (ie: not authenticated,
    *  invalid or malformed post body, invalid url)
@@ -51,7 +54,7 @@ class Google_Http_REST
         array($client, $request, $expectedClass)
     );
 
-    if (!is_null($retryMap)) {
+    if (null !== $retryMap) {
       $runner->setRetryMap($retryMap);
     }
 
@@ -63,6 +66,7 @@ class Google_Http_REST
    *
    * @param Google_Client $client
    * @param Psr\Http\Message\RequestInterface $request
+   * @param string $expectedClass
    * @return array decoded result
    * @throws Google_Service_Exception on server side error (ie: not authenticated,
    *  invalid or malformed post body, invalid url)
@@ -100,6 +104,7 @@ class Google_Http_REST
    * @throws Google_Service_Exception
    * @param Psr\Http\Message\RequestInterface $response The http response to be decoded.
    * @param Psr\Http\Message\ResponseInterface $response
+   * @param string $expectedClass
    * @return mixed|null
    */
   public static function decodeHttpResponse(
@@ -110,7 +115,7 @@ class Google_Http_REST
     $code = $response->getStatusCode();
 
     // retry strategy
-    if ((intVal($code)) >= 400) {
+    if (intVal($code) >= 400) {
       // if we errored out, it should be safe to grab the response body
       $body = (string) $response->getBody();
 
@@ -149,7 +154,7 @@ class Google_Http_REST
     }
 
     // if we don't have a request, we just use what's passed in
-    if (is_null($request)) {
+    if (null === $request) {
       return $expectedClass;
     }
 
